@@ -24,16 +24,21 @@ You can download the latest `.streamdeckplugin` file from the [releases page](ht
 
 - Double-click the `.streamdeckplugin` file.  
 - Confirm the prompt in the Stream Deck software.  
-- You'll get a notification saying *Stream Deck plugin successfully installed*.  
+- You'll get a notification saying *streamdeck plugin successfully installed*.  
 - Drag and drop the plugin action onto any button tile.  
 - Have fun!
 
-### 3. (Optional) Customize or develop the plugin
+## Screenshots
+![Voor de klik](screenshots/before-click.png)
+![Na de klik](screenshots/after-click.png)
+
+
+### (Optional) Customize or develop the plugin
 
 If you want to customize or develop the plugin further:
 
 ```bash
 git clone https://github.com/NathanaelDousa/memePop.git
 cd memePop
-npm install -g @elgato/cli@latest
+npm install
 npm run watch
