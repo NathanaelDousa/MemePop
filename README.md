@@ -8,28 +8,32 @@ Click the button to get a fresh meme from [My website](https://memetrigger.natha
 ## Features
 
 - Fetches random memes from a public API
-- Updates Stream Deck button icon with meme preview
-- Opens your custom website with the meme for easy viewing
+- Updates the Stream Deck button icon with a meme preview
+- Downloads and opens memes locally on your computer
 - Simple, lightweight, and fun!
 
 ---
 
 ## Setup & Installation
 
-1. **Download the pre-built plugin**
+### 1. Download the pre-built plugin
 
-You can download the latest `.sdPlugin` file from the [releases page](https://github.com/yourusername/memetrigger/releases) (or from the repository’s root if you included it there).
+You can download the latest `.streamdeckplugin` file from the [releases page](https://github.com/yourusername/memetrigger/releases) or directly from the repository root.
 
-2. **Install the plugin**
+### 2. Install the plugin
 
-- Open the Stream Deck software.
-- Go to *More Actions* > *Developer* > *Install Plugin*.
-- Select the downloaded `.sdPlugin` file.
-- The plugin will be added and ready to use.
+- Double-click the `.streamdeckplugin` file.  
+- Confirm the prompt in the Stream Deck software.  
+- You'll get a notification saying *Stream Deck plugin successfully installed*.  
+- Drag and drop the plugin action onto any button tile.  
+- Have fun!
 
-3. **(Optional) Customize the plugin**
+### 3. (Optional) Customize or develop the plugin
 
-- If you want to customize or develop further, clone this repository:
+If you want to customize or develop the plugin further:
 
 ```bash
 git clone https://github.com/NathanaelDousa/memePop.git
+cd memePop
+npm install -g @elgato/cli@latest
+npm run watch
