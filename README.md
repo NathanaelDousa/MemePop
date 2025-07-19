@@ -1,7 +1,7 @@
 # MemePop
 
 A Stream Deck plugin that fetches and displays a random meme on your Elgato Stream Deck.  
-Click the button to get a fresh meme from [memeTrigger.com](https://nathanaeldousa.com), opening a web page with the meme on a custom PHP-powered site.
+Click the button to get a fresh meme from [My website](https://memetrigger.nathanaeldousa.com), opening a web page with the meme on a custom PHP-powered site.
 
 ---
 
