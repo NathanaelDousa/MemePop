@@ -40,5 +40,5 @@ If you want to customize or develop the plugin further:
 ```bash
 git clone https://github.com/NathanaelDousa/memePop.git
 cd memePop
-npm install
+npm npm install -g @elgato/cli@latest
 npm run watch
