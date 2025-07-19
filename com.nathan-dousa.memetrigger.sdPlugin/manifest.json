@@ -8,7 +8,6 @@
 			"UUID": "com.nathan-dousa.memetrigger.increment",
 			"Icon": "imgs/actions/counter/chad.png",
 			"Tooltip": "Get a random meme",
-			"PropertyInspectorPath": "ui/increment-counter.html",
 			"Controllers": [
 				"Keypad"
 			],

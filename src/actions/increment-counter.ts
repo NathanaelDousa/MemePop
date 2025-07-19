@@ -5,10 +5,13 @@ import path from "path";
 import os from "os";
 import open from "open";
 
-
 interface MemeData {
     url: string;
     preview: string[];
+}
+
+function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 @action({ UUID: "com.nathan-dousa.memetrigger.increment" })
@@ -23,7 +26,7 @@ export class IncrementCounter extends SingletonAction<CounterSettings> {
             const memeData = (await response.json()) as MemeData;
             const imageUrl = memeData.url;
 
-            // 🧩 Step 1: Create a directory inside user's Pictures
+            // Step 1: Create a directory inside user's Pictures
             const homeDir = os.homedir();
             const memesDir = path.join(homeDir, "Pictures", "StreamDeckMemes");
             if (!fs.existsSync(memesDir)) {
@@ -31,7 +34,7 @@ export class IncrementCounter extends SingletonAction<CounterSettings> {
                 console.log("✅ Created folder:", memesDir);
             }
 
-            // 🧩 Step 2: Download and save image
+            // Step 2: Download and save image
             const imageResponse = await fetch(imageUrl);
             if (!imageResponse.ok) throw new Error("Failed to download image.");
 
@@ -43,15 +46,19 @@ export class IncrementCounter extends SingletonAction<CounterSettings> {
             const filePath = path.join(memesDir, fileName);
 
             fs.writeFileSync(filePath, buffer);
-            console.log("🖼️ Meme saved at:", filePath);
+            console.log(" Meme saved at:", filePath);
 
-            // ✅ Open the image in the default viewer
+            // Open the image in the default viewer
             await open(filePath);
-            console.log("📂 Opened image:", filePath);
+            console.log(" Opened image:", filePath);
 
-            // Optionally update title or give feedback
+            // Update title to saved
             await ev.action.setTitle("✅ Saved");
 
+            // Wait 2.5 seconds before resetting title
+            await delay(2500);
+
+            await ev.action.setTitle("Click me");
 
         } catch (error) {
             console.error("❌ Error:", error);
