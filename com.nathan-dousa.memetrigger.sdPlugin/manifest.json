@@ -1,0 +1,48 @@
+{
+	"Name": "MemeTrigger",
+	"Version": "0.1.0.0",
+	"Author": "Nathan Dousa",
+	"Actions": [
+		{
+			"Name": "Summon a random meme",
+			"UUID": "com.nathan-dousa.memetrigger.increment",
+			"Icon": "imgs/actions/counter/chad.png",
+			"Tooltip": "Get a random meme",
+			"PropertyInspectorPath": "ui/increment-counter.html",
+			"Controllers": [
+				"Keypad"
+			],
+			"States": [
+				{
+					"Image": "imgs/actions/counter/chad",
+					"Title": "Click me",
+					"TitleAlignment": "top"
+				}
+			]
+		}
+	],
+	"Category": "MemeTrigger",
+	"CategoryIcon": "imgs/plugin/chad",
+	"CodePath": "bin/plugin.js",
+	"Description": "Summon a random meme!",
+	"Icon": "imgs/plugin/marketplace",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.4"
+	},
+	"OS": [
+		{
+			"Platform": "mac",
+			"MinimumVersion": "10.15"
+		},
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"UUID": "com.nathan-dousa.memetrigger"
+}
