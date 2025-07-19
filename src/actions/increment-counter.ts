@@ -1,41 +1,65 @@
 import { action, KeyDownEvent, SingletonAction, WillAppearEvent } from "@elgato/streamdeck";
-import open from "open"; // Import the open package
+import fetch from "node-fetch";
+import fs from "fs";
+import path from "path";
+import os from "os";
+import open from "open";
 
-/**
- * An example action class that opens the MemeTrigger website.
- */
+
+interface MemeData {
+    url: string;
+    preview: string[];
+}
+
 @action({ UUID: "com.nathan-dousa.memetrigger.increment" })
 export class IncrementCounter extends SingletonAction<CounterSettings> {
-    private memeTriggerUrl: string = "http://memetrigger.nathanaeldousa.com/"; // Your subdomain URL
-
-    override onWillAppear(ev: WillAppearEvent<CounterSettings>): void | Promise<void> {
-        // Optionally set a title when the action appears
-        return ev.action.setTitle("Click me");
-    }
+    private apiUrl: string = "https://meme-api.com/gimme";
 
     override async onKeyDown(ev: KeyDownEvent<CounterSettings>): Promise<void> {
         try {
-            // Open the meme trigger URL in the web browser
-            await this.openWebBrowser(this.memeTriggerUrl);
-        } catch (error) {
-            console.error("Error opening browser:", error); // Log any errors
-            await ev.action.setTitle("Error opening");
-        }
-    }
+            const response = await fetch(this.apiUrl);
+            if (!response.ok) throw new Error("Network response was not ok");
 
-    private async openWebBrowser(url: string): Promise<void> {
-        try {
-            await open(url); // Open the URL in the default web browser
-            console.log("Opening link:", url); // Log the URL for debugging
+            const memeData = (await response.json()) as MemeData;
+            const imageUrl = memeData.url;
+
+            // 🧩 Step 1: Create a directory inside user's Pictures
+            const homeDir = os.homedir();
+            const memesDir = path.join(homeDir, "Pictures", "StreamDeckMemes");
+            if (!fs.existsSync(memesDir)) {
+                fs.mkdirSync(memesDir, { recursive: true });
+                console.log("✅ Created folder:", memesDir);
+            }
+
+            // 🧩 Step 2: Download and save image
+            const imageResponse = await fetch(imageUrl);
+            if (!imageResponse.ok) throw new Error("Failed to download image.");
+
+            const arrayBuffer = await imageResponse.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+
+            // Extract filename from URL
+            const fileName = path.basename(new URL(imageUrl).pathname);
+            const filePath = path.join(memesDir, fileName);
+
+            fs.writeFileSync(filePath, buffer);
+            console.log("🖼️ Meme saved at:", filePath);
+
+            // ✅ Open the image in the default viewer
+            await open(filePath);
+            console.log("📂 Opened image:", filePath);
+
+            // Optionally update title or give feedback
+            await ev.action.setTitle("✅ Saved");
+
+
         } catch (error) {
-            console.error("Error opening browser:", error); // Log any errors
+            console.error("❌ Error:", error);
+            await ev.action.setTitle("❌ Failed");
         }
     }
 }
 
-/**
- * Settings for {@link IncrementCounter}.
- */
 type CounterSettings = {
     count?: number;
     incrementBy?: number;
